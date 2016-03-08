@@ -111,6 +111,34 @@ var checkForNulls= function() {
   return results;
 }
 
+
+var valueOfAdjacentCells = function(row, col) {
+  var value = 0;
+
+  for (i = row - 1 ; i <= row + 1; i++) {
+    for (j = col - 1 ; j <= col + 1; j++) {
+      if (isValid(i,j)) {
+        value += checkSquareValue(i,j);
+      }
+    }
+  }
+
+  return value;
+}
+
+// STRATEGY
+//
+// 1. loop through entire board,
+//     and find the indices of all null cells
+// 2a. If that array is of size 1,
+//     simulateSquareClick(altKey: false) to flag,
+//     and simulateWinCheck()
+// 2b. Otherwise loop through each null cell, and find the values of adjacent cells
+// 3. find the index of the smallest value,
+//     retrieve the coordinates from the first array,
+//     and simulateSquareClick(row,col, altKey: true)
+
+
 // Uncomment the line below to have the solver automatically run every refresh of index.html
 // otherwise manually execute solver() in console of index.html
 // solver();
