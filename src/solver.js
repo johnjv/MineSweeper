@@ -49,11 +49,6 @@ API Functions
   checkSquareValue(row, col) - this will return the value of a target square
             row - (int) the row of the target square you wish to check
             col - (int) the column of the target square you wish to check
-            return - the result of this action will return the possible values:
-                      0-8 -  (number of nearby mines)
-                      M  - (you found a mine! oh no, game over, womp womp)
-                      * -  (this is a userplaced flag)
-                      null - (you have removed a user placed flag)
 
   isValid(row, col) - given  location, this function will let you know if you are checking a valid position or not
             return - (boolean)
@@ -87,8 +82,8 @@ var solver = function(){
   var play = true;
 
   while(play !== 'M') {
-    play = simulateSquareClick(row, col, true);
 
+    play = simulateSquareClick(row, col, true);
     col++;
     if (col === boardSize) {
       col = 0;
@@ -98,19 +93,13 @@ var solver = function(){
   simulateWinCheck();
 }
 
-var checkForNulls= function() {
-  var results = [];
-  for(var i = 0; i < boardSize; i++) {
-    for(var j = 0; j < boardSize; j++) {
-      var squareVal = checkSquareValue(i, j);
-      if (squareVal == null) {
-        results.push([i,j]);
-      }
-    }
-  }
-  return results;
-}
+var betterSolver = function() {
+  var row = 0;
+  var col = 0;
 
+  if ()
+
+}
 
 var valueOfAdjacentCells = function(row, col) {
   var value = 0;
@@ -126,17 +115,31 @@ var valueOfAdjacentCells = function(row, col) {
   return value;
 }
 
-// STRATEGY
-//
-// 1. loop through entire board,
-//     and find the indices of all null cells
-// 2a. If that array is of size 1,
-//     simulateSquareClick(altKey: false) to flag,
-//     and simulateWinCheck()
-// 2b. Otherwise loop through each null cell, and find the values of adjacent cells
-// 3. find the index of the smallest value,
-//     retrieve the coordinates from the first array,
-//     and simulateSquareClick(row,col, altKey: true)
+var indexOfMin = function(arrayOfValues) {
+  var minimumValue = Math.min.apply(null, arrayOfValues);
+  for (i = 0; i < arrayOfValues.length; i++) {
+    if (arrayOfValues[i] == minimumValue) {
+      return i;
+    }
+  }
+}
+
+
+// [[i,j], [i,j], [i,j]].map(valueOfAdjacentCells)
+// rowColPairArray[valueOfCellsArray.min().index]
+
+1. loop through entire board,
+    and find the indices of all null cells
+2a. If that array is of size 1,
+    simulateSquareClick(altKey: false) to flag,
+    and simulateWinCheck()
+2b. Otherwise loop through each null cell, and find the values of adjacent cells
+3. find the index of the smallest value,
+    retrieve the coordinates from the first array,
+    and simulateSquareClick(row,col, altKey: true)
+
+
+
 
 
 // Uncomment the line below to have the solver automatically run every refresh of index.html
